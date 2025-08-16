@@ -3,13 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>OwLink - GrüneEule URL-Shortener</title>
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="icon" href="https://grueneeule.de/assets/img/gruneeule.png" type="image/png">
+    <link rel="stylesheet" href="/assets/css/main.css">
 </head>
 <body>
+<div class="bg-animation"></div>
+
+<a href="/" class="logo">
+    <img src="https://grueneeule.de/assets/img/gruneeule.png" alt="GrüneEule Logo" class="logo-img">
+    <span>GrüneEule</span>
+</a>
+
 <h1>OwLink - URL kürzen</h1>
+
 <form action="/shortener.py" method="post">
-    Lange URL: <input type="url" name="original_url" required><br>
-    Kurzname: <input type="text" name="short_name" pattern="[a-zA-Z0-9_-]+" required><br>
+    <label for="original_url">Lange URL:</label>
+    <input type="url" id="original_url" name="original_url" required>
+
+    <label for="short_name">Kurzname:</label>
+    <input type="text" id="short_name" name="short_name" pattern="[a-zA-Z0-9_-]+" required>
+
     <button type="submit">Kürzen</button>
 </form>
 </body>
