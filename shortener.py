@@ -3,8 +3,8 @@ import cgi
 import os
 import subprocess
 
-CONF_FILE = "/path/to/grueneeule-urlshortener/redirects.conf"
-LOG_FILE = "/path/to/grueneeule-urlshortener/logs/shortener.log"
+CONF_FILE = "/var/www/web/owlink/redirects.conf"
+LOG_FILE = "/var/www/web/owlink/logs/shortener.log"
 
 print("Content-Type: text/html\n")
 
