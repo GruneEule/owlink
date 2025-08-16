@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>OwLink - GrüneEule URL-Shortener</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<h1>OwLink - URL kürzen</h1>
+<form action="/shortener.py" method="post">
+    Lange URL: <input type="url" name="original_url" required><br>
+    Kurzname: <input type="text" name="short_name" pattern="[a-zA-Z0-9_-]+" required><br>
+    <button type="submit">Kürzen</button>
+</form>
+</body>
+</html>
