@@ -27,30 +27,55 @@
 
 <main>
     <div class="shortener-container">
-        <form id="shortenForm">
-            <div class="logo-container">
-                <img src="/assets/img/owlinx.png" alt="OwLinx Logo" class="form-logo">
-                <h1>OwLinx</h1>
-            </div>
+        <div id="tabContainer" class="tab-container">
+            <button class="tab-button active" onclick="openTab('shortenTab')">URL Shortener</button>
+            <button class="tab-button" onclick="openTab('qrTab')">QR Code</button>
+        </div>
 
-            <div class="beta-banner">
-                OwLinx befindet sich aktuell in der Testphase. Wenn alles gut läuft, wird bald eine eigene Domain bereitgestellt!
-            </div>
+        <div id="shortenTab" class="tab-content" style="display: block;">
+            <form id="shortenForm">
+                <div class="logo-container">
+                    <img src="/assets/img/owlinx.png" alt="OwLinx Logo" class="form-logo">
+                    <h1>OwLinx</h1>
+                </div>
 
-            <div class="form-group">
-                <label for="original_url">Lange URL:</label>
-                <input type="url" id="original_url" name="original_url" required placeholder="https://">
-            </div>
+                <div class="beta-banner">
+                    OwLinx befindet sich aktuell in der Testphase. Wenn alles gut läuft, wird bald eine eigene Domain bereitgestellt!
+                </div>
 
-            <div class="form-group">
-                <label for="short_name">Kurzname:</label>
-                <input type="text" id="short_name" name="short_name" pattern="[a-zA-Z0-9_-]+" required placeholder="mein-link">
-            </div>
+                <div class="form-group">
+                    <label for="original_url">Lange URL:</label>
+                    <input type="url" id="original_url" name="original_url" required placeholder="https://">
+                </div>
 
-            <button type="submit">URL kürzen</button>
+                <div class="form-group">
+                    <label for="short_name">Kurzname:</label>
+                    <input type="text" id="short_name" name="short_name" pattern="[a-zA-Z0-9_-]+" required placeholder="mein-link">
+                </div>
 
-            <div id="result"></div>
-        </form>
+                <button type="submit">URL kürzen</button>
+
+                <div id="result"></div>
+            </form>
+        </div>
+
+        <div id="qrTab" class="tab-content">
+            <form id="qrForm">
+                <div class="logo-container">
+                    <img src="/assets/img/owlinx.png" alt="OwLinx Logo" class="form-logo">
+                    <h1>QR Code Generator</h1>
+                </div>
+
+                <div class="form-group">
+                    <label for="qr_url">URL für QR Code:</label>
+                    <input type="url" id="qr_url" name="url" required placeholder="https://">
+                </div>
+
+                <button type="submit">QR Code generieren</button>
+
+                <div id="qrResult"></div>
+            </form>
+        </div>
     </div>
 </main>
 
@@ -123,6 +148,7 @@
 </footer>
 
 <script>
+    // URL Shortener Form
     const form = document.getElementById("shortenForm");
     const resultDiv = document.getElementById("result");
 
@@ -160,6 +186,70 @@
             resultDiv.style.display = 'block';
         }
     });
+
+    // QR Code Form
+    const qrForm = document.getElementById("qrForm");
+    const qrResult = document.getElementById("qrResult");
+
+    qrForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        qrResult.style.display = 'none';
+        const formData = new URLSearchParams(new FormData(qrForm));
+
+        try {
+            const res = await fetch("/api/qrcode", {
+                method: "POST",
+                body: formData
+            });
+
+            if (res.ok) {
+                const blob = await res.blob();
+                const url = URL.createObjectURL(blob);
+
+                // QR Code anzeigen
+                qrResult.innerHTML = `
+                    <p>QR Code generiert! 🎉</p>
+                    <img src="${url}" alt="QR Code" style="max-width: 300px; margin: 20px auto; display: block;">
+                    <a href="${url}" download="qrcode.png" class="download-btn">QR Code herunterladen</a>
+                `;
+                qrResult.className = 'success';
+                qrResult.style.display = 'block';
+
+                // Automatischer Download
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'qrcode.png';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            } else {
+                const text = await res.text();
+                qrResult.innerText = text;
+                qrResult.className = 'error';
+                qrResult.style.display = 'block';
+            }
+        } catch (error) {
+            qrResult.innerText = "Netzwerkfehler: " + error.message;
+            qrResult.className = 'error';
+            qrResult.style.display = 'block';
+        }
+    });
+
+    // Tab-Funktionalität
+    function openTab(tabName) {
+        const tabContents = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabContents.length; i++) {
+            tabContents[i].style.display = "none";
+        }
+
+        const tabButtons = document.getElementsByClassName("tab-button");
+        for (let i = 0; i < tabButtons.length; i++) {
+            tabButtons[i].classList.remove("active");
+        }
+
+        document.getElementById(tabName).style.display = "block";
+        event.currentTarget.classList.add("active");
+    }
 
     // Header scroll effect
     window.addEventListener('scroll', function() {

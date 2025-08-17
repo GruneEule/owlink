@@ -451,3 +451,60 @@ footer {
     border: 3px solid var(--accent-purple);
     box-shadow: var(--shadow-glow);
 }
+
+/* Tab Styles */
+.tab-container {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab-button {
+    padding: 12px 24px;
+    background: var(--bg-secondary);
+    border: none;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+    margin-right: 5px;
+}
+
+.tab-button:hover {
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.tab-button.active {
+    background: var(--bg-card);
+    color: var(--main-color);
+    border-bottom: 3px solid var(--main-color);
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Download Button */
+.download-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background: var(--gradient-1);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(46, 139, 87, 0.3);
+}
