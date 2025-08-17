@@ -2,38 +2,117 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OwLink - GrüneEule URL-Shortener</title>
     <link rel="icon" href="https://grueneeule.de/assets/img/gruneeule.png" type="image/png">
     <link rel="stylesheet" href="/assets/css/main.css">
 </head>
 <body>
 <div class="bg-animation"></div>
-<a href="https://github.com/gruneeule/OwLink" class="github-button" target="_blank">
-    <svg height="16" viewBox="0 0 16 16" width="16" fill="currentColor">
-        <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
-    </svg>
-    GitHub
-</a>
 
-<div class="shortener-container">
-    <form id="shortenForm">
-        <h1>OwLink <span>URL Shortener</span></h1>
+<header>
+    <nav>
+        <a href="/index.html" class="logo">
+            <img src="https://grueneeule.de/assets/img/gruneeule.png" alt="GrüneEule Logo" class="logo-img">
+            OwLink
+        </a>
+        <ul class="nav-links">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="https://grueneeule.de">GrüneEule</a></li>
+            <li><a href="https://github.com/GruneEule/owlink">GitHub</a></li>
+            <li><a href="https://grueneeule.de/l/dc" target="_blank" rel="noopener noreferrer">Discord Server</a></li>
+        </ul>
+    </nav>
+</header>
 
-        <div class="beta-banner">
-            Beta Version - Bei Problemen bitte auf GitHub melden
+<main>
+    <div class="shortener-container">
+        <form id="shortenForm">
+            <h1>OwLink <span>URL Shortener</span></h1>
+
+            <div class="beta-banner">
+                OwLink befindet sich aktuell in der Testphase. Wenn alles gut läuft, wird bald eine eigene Domain bereitgestellt!
+            </div>
+
+            <div class="form-group">
+                <label for="original_url">Lange URL:</label>
+                <input type="url" id="original_url" name="original_url" required placeholder="https://">
+            </div>
+
+            <div class="form-group">
+                <label for="short_name">Kurzname:</label>
+                <input type="text" id="short_name" name="short_name" pattern="[a-zA-Z0-9_-]+" required placeholder="mein-link">
+            </div>
+
+            <button type="submit">URL kürzen</button>
+
+            <div id="result"></div>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>GrüneEule</h4>
+                <p><a href="https://grueneeule.de/l/github">GitHub</a></p>
+                <p><a href="https://status.grueneeule.de">Status</a></p>
+            </div>
+            <div class="footer-section">
+                <h4>Navigation</h4>
+                <p><a href="/index.html">Home</a></p>
+                <p><a href="https://grueneeule.de">GrüneEule</a></p>
+                <p><a href="https://grueneeule.de">GitHub Repo</a></p>
+                <p><a href="https://grueneeule.de/l/dc">Discord Server</a></p>
+            </div>
+            <div class="footer-section">
+                <h4>Kontakt</h4>
+                <p><a href="https://grueneeule.de/l/dc" target="_blank" rel="noopener noreferrer">Discord-Server beitreten</a></p>
+                <p><a href="mailto:hello@grueneeule.de">hello@grueneeule.de</a></p>
+            </div>
+            <div class="footer-section" style="max-width: 180px;">
+                <h4>Nachhaltigkeit</h4>
+                <a href="https://www.netcup.com" target="_blank" rel="noopener noreferrer">
+                    <img src="https://www.netcup.com/uploads/netcup_oekostrom_c6af08e7b5.png"
+                         alt="netcup Ökostrom"
+                         style="width: 80px; height: auto; margin-top: 5px;">
+                </a>
+            </div>
         </div>
-
-        <label for="original_url">Lange URL:</label>
-        <input type="url" id="original_url" name="original_url" required placeholder="https://">
-
-        <label for="short_name">Kurzname:</label>
-        <input type="text" id="short_name" name="short_name" pattern="[a-zA-Z0-9_-]+" required placeholder="mein-link">
-
-        <button type="submit">URL kürzen</button>
-
-        <div id="result"></div>
-    </form>
-</div>
+        <div class="footer-banner footer-bottom" style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                margin: 20px 0;
+                flex-wrap: wrap;
+            ">
+            <div style="text-align: center; display: flex; align-items: center; gap: 10px;">
+                <p>Domain by</p>
+                <a href="https://www.netcup.com" target="_blank" rel="noopener noreferrer">
+                    <img src="https://www.netcup.com/uploads/Netcup_logo_RGB_color_vorschau_fe8ecdc428.png" width="150" height="43" alt="netcup" />
+                </a>
+            </div>
+            <div style="text-align: center; display: flex; align-items: center; gap: 10px;">
+                <p>Hosted by</p>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <a href="https://index-hosting.com" target="_blank" rel="noopener noreferrer">
+                        <img src="https://index-hosting.com/templates/lagom2/assets/img/logo/logo_big_inverse.392541094.svg" width="170" height="65" alt="Index-Hosting" />
+                    </a>
+                    <span>with</span>
+                    <a href="https://nginx.org" target="_blank" rel="noopener noreferrer">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Nginx_logo.svg" width="100" alt="NGINX" />
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Developed with 🦉 by JumpStone.</p>
+            <p>&copy; 2025 GrüneEule. Veröffentlicht unter AGPL-3.0.</p>
+        </div>
+    </div>
+</footer>
 
 <script>
     const form = document.getElementById("shortenForm");
@@ -56,10 +135,10 @@
                 const url = `/${shortName}`;
 
                 resultDiv.innerHTML = `
-                    <p>Link erstellt! 🚀</p>
-                    <p>Es kann bis zu <strong>1 Minute</strong> dauern, bis der Link aktiv ist.</p>
-                    <a href="${url}" target="_blank">${window.location.origin + url}</a>
-                `;
+                        <p>Link erstellt! 🚀</p>
+                        <p>Es kann bis zu <strong>1 Minute</strong> dauern, bis der Link aktiv ist.</p>
+                        <a href="${url}" target="_blank">${window.location.origin + url}</a>
+                    `;
                 resultDiv.className = 'success';
                 resultDiv.style.display = 'block';
             } else {
@@ -71,6 +150,16 @@
             resultDiv.innerText = "Netzwerkfehler: " + error.message;
             resultDiv.className = 'error';
             resultDiv.style.display = 'block';
+        }
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+        const header = document.querySelector('header');
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
         }
     });
 </script>
