@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>OwLink - GrüneEule URL-Shortener</title>
+    <link rel="icon" href="https://grueneeule.de/assets/img/gruneeule.png" type="image/png">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+<h1>OwLink - URL kürzen</h1>
+<form id="shortenForm">
+    <label for="original_url">Lange URL:</label>
+    <input type="url" id="original_url" name="original_url" required>
+
+    <label for="short_name">Kurzname:</label>
+    <input type="text" id="short_name" name="short_name" pattern="[a-zA-Z0-9_-]+" required>
+
+    <button type="submit">Kürzen</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+    document.getElementById("shortenForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const formData = new URLSearchParams(new FormData(e.target));
+        const res = await fetch("/api/shorten", {
+            method: "POST",
+            body: formData
+        });
+        const text = await res.text();
+        document.getElementById("result").innerText = text;
+    });
+</script>
+</body>
+</html>
