@@ -5,31 +5,117 @@
     <title>OwLink - GrüneEule URL-Shortener</title>
     <link rel="icon" href="https://grueneeule.de/assets/img/gruneeule.png" type="image/png">
     <link rel="stylesheet" href="/assets/css/main.css">
+    <style>
+        /* Ergänzungen zum Haupt-CSS */
+        .shortener-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        #shortenForm {
+            width: 100%;
+            max-width: 500px;
+            margin: 2rem 0;
+        }
+
+        #result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+            text-align: center;
+        }
+
+        #result.success {
+            background: rgba(46, 139, 87, 0.2);
+            color: var(--accent-green);
+            border: 1px solid rgba(46, 139, 87, 0.3);
+        }
+
+        #result.error {
+            background: rgba(183, 28, 28, 0.2);
+            color: #ff5252;
+            border: 1px solid rgba(183, 28, 28, 0.3);
+        }
+
+        #result a {
+            color: var(--accent-green);
+            text-decoration: underline;
+            font-weight: bold;
+            word-break: break-all;
+        }
+    </style>
 </head>
 <body>
-<h1>OwLink - URL kürzen</h1>
-<form id="shortenForm">
-    <label for="original_url">Lange URL:</label>
-    <input type="url" id="original_url" name="original_url" required>
+<div class="bg-animation"></div>
+<a href="https://github.com/gruneeule/OwLink" class="github-button" target="_blank">
+    <svg height="16" viewBox="0 0 16 16" width="16" fill="currentColor">
+        <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+    </svg>
+    GitHub
+</a>
 
-    <label for="short_name">Kurzname:</label>
-    <input type="text" id="short_name" name="short_name" pattern="[a-zA-Z0-9_-]+" required>
+<div class="shortener-container">
+    <form id="shortenForm">
+        <h1>OwLink <span>URL Shortener</span></h1>
 
-    <button type="submit">Kürzen</button>
-</form>
+        <div class="beta-banner">
+            Beta Version - Bei Problemen bitte auf GitHub melden
+        </div>
 
-<div id="result"></div>
+        <label for="original_url">Lange URL:</label>
+        <input type="url" id="original_url" name="original_url" required placeholder="https://">
+
+        <label for="short_name">Kurzname:</label>
+        <input type="text" id="short_name" name="short_name" pattern="[a-zA-Z0-9_-]+" required placeholder="mein-link">
+
+        <button type="submit">URL kürzen</button>
+
+        <div id="result"></div>
+    </form>
+</div>
 
 <script>
-    document.getElementById("shortenForm").addEventListener("submit", async (e) => {
+    const form = document.getElementById("shortenForm");
+    const resultDiv = document.getElementById("result");
+
+    form.addEventListener("submit", async (e) => {
         e.preventDefault();
-        const formData = new URLSearchParams(new FormData(e.target));
-        const res = await fetch("/api/shorten", {
-            method: "POST",
-            body: formData
-        });
-        const text = await res.text();
-        document.getElementById("result").innerText = text;
+        resultDiv.style.display = 'none';
+        const formData = new URLSearchParams(new FormData(form));
+
+        try {
+            const res = await fetch("/api/shorten", {
+                method: "POST",
+                body: formData
+            });
+            const text = await res.text();
+
+            if (res.ok) {
+                const shortName = document.getElementById("short_name").value;
+                const url = `/ol/${shortName}`;
+
+                resultDiv.innerHTML = `
+                    <p>Link erstellt! 🚀</p>
+                    <p>Es kann bis zu <strong>1 Minute</strong> dauern, bis der Link aktiv ist.</p>
+                    <a href="${url}" target="_blank">${window.location.origin + url}</a>
+                `;
+                resultDiv.className = 'success';
+                resultDiv.style.display = 'block';
+            } else {
+                resultDiv.innerText = text;
+                resultDiv.className = 'error';
+                resultDiv.style.display = 'block';
+            }
+        } catch (error) {
+            resultDiv.innerText = "Netzwerkfehler: " + error.message;
+            resultDiv.className = 'error';
+            resultDiv.style.display = 'block';
+        }
     });
 </script>
 </body>
