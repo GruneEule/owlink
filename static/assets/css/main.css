@@ -510,9 +510,65 @@ footer {
 }
 
 .logo-container h1 {
-    background: linear-gradient(90deg, var(--accent-purple), var(--accent-orange), var(--accent-purple));
+    background: linear-gradient(90deg, var(--accent-purple), var(--main-color), var(--accent-purple));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     margin: 0.5rem 0;
+}
+
+.special-message {
+    background: linear-gradient(135deg, #ff3535, #ff4d4d);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    margin: 2rem 0;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+    animation: pulse 2s infinite;
+}
+
+.special-message h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.special-message p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.claim-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: white;
+    color: #ff6b35;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.claim-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    background: #f8f8f8;
+}
+
+.requested-url {
+    font-family: monospace;
+    background: rgba(0,0,0,0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    word-break: break-all;
+    margin: 1rem 0;
+    display: inline-block;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
 }

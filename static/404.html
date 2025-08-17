@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OwLinx - by GrüneEule</title>
+    <link rel="icon" href="/assets/img/owlinx.png" type="image/png">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <style>
+    </style>
+</head>
+<body>
+<div class="bg-animation"></div>
+
+<header>
+    <nav>
+        <a href="/index.html" class="logo">
+            <img src="/assets/img/owlinx.png" alt="GrüneEule Logo" class="logo-img">
+            OwLinx
+        </a>
+        <ul class="nav-links">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="https://grueneeule.de">GrüneEule</a></li>
+            <li><a href="https://github.com/GruneEule/owlink">GitHub</a></li>
+            <li><a href="https://grueneeule.de/l/dc" target="_blank" rel="noopener noreferrer">Discord Server</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <div class="shortener-container">
+        <div class="logo-container">
+            <img src="/assets/img/owlinx.png" alt="OwLinx Logo" class="form-logo">
+            <h1>OwLinx</h1>
+        </div>
+
+        <div class="special-message">
+            <h2>ℹ️ Dieser Link wurde noch nicht erstellt!</h2>
+            <div class="requested-url" id="requestedUrl"></div>
+            <p>Erstelle ihn jetzt und sichere dir deinen persönlichen Kurzlink, bevor es jemand anderes tut!</p>
+            <a href="/" class="claim-button" id="claimButton">JETZT BEANSPRUCHEN</a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>GrüneEule</h4>
+                <p><a href="https://grueneeule.de/l/github">GitHub</a></p>
+                <p><a href="https://status.grueneeule.de">Status</a></p>
+            </div>
+            <div class="footer-section">
+                <h4>Navigation</h4>
+                <p><a href="/index.html">Home</a></p>
+                <p><a href="https://grueneeule.de">GrüneEule</a></p>
+                <p><a href="https://grueneeule.de">GitHub Repo</a></p>
+                <p><a href="https://grueneeule.de/l/dc">Discord Server</a></p>
+            </div>
+            <div class="footer-section">
+                <h4>Kontakt</h4>
+                <p><a href="https://grueneeule.de/l/dc" target="_blank" rel="noopener noreferrer">Discord-Server beitreten</a></p>
+                <p><a href="mailto:hello@grueneeule.de">hello@grueneeule.de</a></p>
+            </div>
+            <div class="footer-section">
+                <h4>Rechtliches</h4>
+                <p><a href="https://grueneeule.de/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Datenschutzerklärung</a></p>
+                <p><a href="https://grueneeule.de/legal/agb" target="_blank" rel="noopener noreferrer">AGB</a></p>
+            </div>
+            <div class="footer-section" style="max-width: 180px;">
+                <h4>Nachhaltigkeit</h4>
+                <a href="https://www.netcup.com" target="_blank" rel="noopener noreferrer">
+                    <img src="https://www.netcup.com/uploads/netcup_oekostrom_c6af08e7b5.png"
+                         alt="netcup Ökostrom"
+                         style="width: 80px; height: auto; margin-top: 5px;">
+                </a>
+            </div>
+        </div>
+        <div class="footer-banner footer-bottom" style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                margin: 20px 0;
+                flex-wrap: wrap;
+            ">
+            <div style="text-align: center; display: flex; align-items: center; gap: 10px;">
+                <p>Domain by</p>
+                <a href="https://www.netcup.com" target="_blank" rel="noopener noreferrer">
+                    <img src="https://www.netcup.com/uploads/Netcup_logo_RGB_color_vorschau_fe8ecdc428.png" width="150" height="43" alt="netcup" />
+                </a>
+            </div>
+            <div style="text-align: center; display: flex; align-items: center; gap: 10px;">
+                <p>Hosted by</p>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <a href="https://index-hosting.com" target="_blank" rel="noopener noreferrer">
+                        <img src="https://index-hosting.com/templates/lagom2/assets/img/logo/logo_big_inverse.392541094.svg" width="170" height="65" alt="Index-Hosting" />
+                    </a>
+                    <span>with</span>
+                    <a href="https://nginx.org" target="_blank" rel="noopener noreferrer">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Nginx_logo.svg" width="100" alt="NGINX" />
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Developed with 🦉 by JumpStone.</p>
+            <p>&copy; 2025 GrüneEule. Veröffentlicht unter AGPL-3.0.</p>
+        </div>
+    </div>
+</footer>
+
+
+<script>
+    // Holen der aktuellen URL
+    const currentUrl = window.location.pathname;
+    const requestedUrlElement = document.getElementById('requestedUrl');
+    const claimButton = document.getElementById('claimButton');
+
+    // Anzeigen der aufgerufenen URL
+    requestedUrlElement.textContent = window.location.origin + currentUrl;
+
+    // Setzen des Links für den Claim-Button
+    claimButton.href = `/?desired=${currentUrl.substring(1)}`;
+
+    // Optional: Scrollen zur Nachricht, wenn eine spezifische URL aufgerufen wurde
+    if(currentUrl !== '/') {
+        window.scrollTo({
+            top: document.querySelector('.special-message').offsetTop - 100,
+            behavior: 'smooth'
+        });
+    }
+</script>
+</body>
+</html>
