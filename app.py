@@ -30,12 +30,12 @@ def application(environ, start_response):
             # Prüfen, ob schon vorhanden
             if os.path.exists(CONF_FILE):
                 with open(CONF_FILE, "r") as f:
-                    if f"/ol/{short_name}" in f.read():
+                    if f"/{short_name}" in f.read():
                         return _response(start_response, 400, f"Fehler: {short_name} existiert bereits!")
 
             # Eintrag hinzufügen
             with open(CONF_FILE, "a") as f:
-                f.write(f"\nlocation = /ol/{short_name} {{\n    return 302 {original_url};\n}}\n")
+                f.write(f"\nlocation = /{short_name} {{\n    return 302 {original_url};\n}}\n")
 
             # Log schreiben
             with open(LOG_FILE, "a") as f:
@@ -44,7 +44,7 @@ def application(environ, start_response):
             # Nginx reload
             os.system("sudo nginx -s reload")
 
-            return _response(start_response, 200, f"Link erstellt: /ol/{short_name}")
+            return _response(start_response, 200, f"Link erstellt: /{short_name}")
 
         else:
             return _response(start_response, 404, "Not Found")

@@ -5,50 +5,6 @@
     <title>OwLink - GrüneEule URL-Shortener</title>
     <link rel="icon" href="https://grueneeule.de/assets/img/gruneeule.png" type="image/png">
     <link rel="stylesheet" href="/assets/css/main.css">
-    <style>
-        /* Ergänzungen zum Haupt-CSS */
-        .shortener-container {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        #shortenForm {
-            width: 100%;
-            max-width: 500px;
-            margin: 2rem 0;
-        }
-
-        #result {
-            margin-top: 1.5rem;
-            padding: 1rem;
-            border-radius: 8px;
-            display: none;
-            text-align: center;
-        }
-
-        #result.success {
-            background: rgba(46, 139, 87, 0.2);
-            color: var(--accent-green);
-            border: 1px solid rgba(46, 139, 87, 0.3);
-        }
-
-        #result.error {
-            background: rgba(183, 28, 28, 0.2);
-            color: #ff5252;
-            border: 1px solid rgba(183, 28, 28, 0.3);
-        }
-
-        #result a {
-            color: var(--accent-green);
-            text-decoration: underline;
-            font-weight: bold;
-            word-break: break-all;
-        }
-    </style>
 </head>
 <body>
 <div class="bg-animation"></div>
@@ -97,7 +53,7 @@
 
             if (res.ok) {
                 const shortName = document.getElementById("short_name").value;
-                const url = `/ol/${shortName}`;
+                const url = `/${shortName}`;
 
                 resultDiv.innerHTML = `
                     <p>Link erstellt! 🚀</p>
