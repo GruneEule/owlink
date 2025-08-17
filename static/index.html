@@ -27,21 +27,21 @@
 
 <main>
     <div class="shortener-container">
+        <div class="logo-container">
+            <img src="/assets/img/owlinx.png" alt="OwLinx Logo" class="form-logo">
+            <h1>OwLinx</h1>
+        </div>
+
+        <div class="beta-banner">
+            OwLinx befindet sich aktuell in der Testphase. Wenn alles gut läuft, wird bald eine eigene Domain bereitgestellt!
+        </div>
+
         <div id="tabContainer" class="tab-container">
             <button class="tab-button active" onclick="openTab('shortenTab')">URL Shortener</button>
             <button class="tab-button" onclick="openTab('qrTab')">QR Code</button>
         </div>
-
         <div id="shortenTab" class="tab-content" style="display: block;">
             <form id="shortenForm">
-                <div class="logo-container">
-                    <img src="/assets/img/owlinx.png" alt="OwLinx Logo" class="form-logo">
-                    <h1>OwLinx</h1>
-                </div>
-
-                <div class="beta-banner">
-                    OwLinx befindet sich aktuell in der Testphase. Wenn alles gut läuft, wird bald eine eigene Domain bereitgestellt!
-                </div>
 
                 <div class="form-group">
                     <label for="original_url">Lange URL:</label>
@@ -61,10 +61,6 @@
 
         <div id="qrTab" class="tab-content">
             <form id="qrForm">
-                <div class="logo-container">
-                    <img src="/assets/img/owlinx.png" alt="OwLinx Logo" class="form-logo">
-                    <h1>QR Code Generator</h1>
-                </div>
 
                 <div class="form-group">
                     <label for="qr_url">URL für QR Code:</label>
